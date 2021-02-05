@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css?family=Red+Hat+Display:400,900&display=swap");
+.center {
+  margin: auto;
+  padding: 50px 0;
+  z-index: 10;
+  font-family: "Red Hat Display", sans-serif;
+  color: #333;
+}
+
+.list {
+  padding-left: 2rem;
+  margin: 0 auto;
+  width: 600px;
+}
+.list .item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: white;
+  height: 4rem;
+  border-radius: 4rem;
+  margin-bottom: 2rem;
+  background: #eaa786;
+  transform-origin: left;
+  cursor: pointer;
+  transition: transform 200ms ease-in-out;
+  box-shadow: 0 0 4rem 0 rgba(0, 0, 0, 0.1),
+    0 1rem 2rem -1rem rgba(0, 0, 0, 0.3);
+}
+.list .item .pos {
+  font-weight: 900;
+  position: absolute;
+  left: -2rem;
+  text-align: center;
+  font-size: 1.25rem;
+  width: 1.5rem;
+  color: white;
+  opacity: 0.6;
+  transition: opacity 200ms ease-in-out;
+}
+.list .item .pic {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background-size: contain;
+  background-position: center;
+  margin-right: 1rem;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2),
+    0 1rem 1rem -0.5rem rgba(0, 0, 0, 0.3);
+}
+.list .item .name {
+  flex-grow: 2;
+  flex-basis: 10rem;
+  font-size: 1.1rem;
+  text-align: start;
+}
+
+.content-body {
+  height: 100vh;
+  background: #4b4168;
+}
+
+.type-question {
+  cursor: text;
+}
+
+.name-text {
+  color: white;
+  text-transform: capitalize;
+}
+.list .item .score {
+  margin-right: 1.5rem;
+  opacity: 0.5;
+}
+.list .item .score:after {
+  margin-right: 1rem;
+  content: "points";
+  opacity: 0.5;
+}
+.list .item:hover {
+  transform: scale(1.05);
+}
+.list .item:hover .pos {
+  opacity: 0.8;
+}
+
+.question-answers-count {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  font-weight: 600;
+  color: wheat;
+}

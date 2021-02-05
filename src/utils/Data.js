@@ -1,0 +1,227 @@
+import man1 from "../images/man1.jpg";
+import man2 from "../images/man2.jpg";
+import girl1 from "../images/girl1.jpg";
+import girl2 from "../images/girl2.jpg";
+import girl3 from "../images/girl3.jpg";
+import man3 from "../images/man3.jpg";
+let users = {
+  tylermcginnis: {
+    id: "tylermcginnis",
+    name: "tylermc ginnis",
+    avatarURL: man1,
+    answers: {},
+    questions: ["am8ehyc8byjqgar0jgpub9"],
+  },
+  mohamedgomaa: {
+    id: "mohamedgomaa",
+    name: "mohamed gomaa",
+    avatarURL: man2,
+    answers: {},
+    questions: [],
+  },
+  sarahedo: {
+    id: "sarahedo",
+    name: "sarah edo",
+    avatarURL: girl2,
+    answers: {},
+    questions: ["loxhs1bqm25b708cmbf3g", "vthrdm985a262al8qx3do"],
+  },
+
+  fatema: {
+    id: "fatema",
+    name: "fatema magdi",
+    avatarURL: girl1,
+    answers: {},
+    questions: ["8xf0y6ziyjabvozdd253nd"],
+  },
+
+  salmamig: {
+    id: "salmamig",
+    name: "salma mig",
+    avatarURL: girl3,
+    answers: {},
+    questions: [],
+  },
+
+  johndoe: {
+    id: "johndoe",
+    name: "John Doe",
+    avatarURL: man3,
+    answers: {},
+    questions: ["6ni6ok3ym7mf1p33lnez", "xj352vofupe1dqz9emx13r"],
+  },
+};
+
+let questions = {
+  am8ehyc8byjqgar0jgpub9: {
+    id: "am8ehyc8byjqgar0jgpub9",
+    author: "sarahedo",
+    timestamp: 1488579767190,
+    optionOne: {
+      votes: [],
+      text: "be telekinetic",
+    },
+    optionTwo: {
+      votes: [],
+      text: "be telepathic",
+    },
+  },
+  loxhs1bqm25b708cmbf3g: {
+    id: "loxhs1bqm25b708cmbf3g",
+    author: "tylermcginnis",
+    timestamp: 1482579767190,
+    optionOne: {
+      votes: [],
+      text: "be a front-end developer",
+    },
+    optionTwo: {
+      votes: [],
+      text: "be a back-end developer",
+    },
+  },
+
+  "8xf0y6ziyjabvozdd253nd": {
+    id: "8xf0y6ziyjabvozdd253nd",
+    author: "fatema",
+    timestamp: 1467166872634,
+    optionOne: {
+      votes: [],
+      text: "have horrible short term memory",
+    },
+    optionTwo: {
+      votes: [],
+      text: "have horrible long term memory",
+    },
+  },
+  "6ni6ok3ym7mf1p33lnez": {
+    id: "6ni6ok3ym7mf1p33lnez",
+    author: "johndoe",
+    timestamp: 1468479767190,
+    optionOne: {
+      votes: [],
+      text: "become a superhero",
+    },
+    optionTwo: {
+      votes: [],
+      text: "become a supervillian",
+    },
+  },
+
+  vthrdm985a262al8qx3do: {
+    id: "vthrdm985a262al8qx3do",
+    author: "tylermcginnis",
+    timestamp: 1489579767190,
+    optionOne: {
+      votes: [],
+      text: "find $50 yourself",
+    },
+    optionTwo: {
+      votes: [],
+      text: "have your best friend find $500",
+    },
+  },
+  xj352vofupe1dqz9emx13r: {
+    id: "xj352vofupe1dqz9emx13r",
+    author: "johndoe",
+    timestamp: 1493579767190,
+    optionOne: {
+      votes: [],
+      text: "write JavaScript",
+    },
+    optionTwo: {
+      votes: [],
+      text: "write Swift",
+    },
+  },
+};
+
+function generateUID() {
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
+}
+
+export function _getUsers() {
+  return new Promise((res, rej) => {
+    setTimeout(() => res({ ...users }), 1000);
+  });
+}
+
+export function _getQuestions() {
+  return new Promise((res, rej) => {
+    setTimeout(() => res({ ...questions }), 1000);
+  });
+}
+
+function formatQuestion({ optionOneText, optionTwoText, author }) {
+  return {
+    id: generateUID(),
+    timestamp: Date.now(),
+    author,
+    optionOne: {
+      votes: [],
+      text: optionOneText,
+    },
+    optionTwo: {
+      votes: [],
+      text: optionTwoText,
+    },
+  };
+}
+
+export function _saveQuestion(question) {
+  return new Promise((res, rej) => {
+    const authedUser = question.author;
+    const formattedQuestion = formatQuestion(question);
+
+    setTimeout(() => {
+      questions = {
+        ...questions,
+        [formattedQuestion.id]: formattedQuestion,
+      };
+
+      users = {
+        ...users,
+        [authedUser]: {
+          ...users[authedUser],
+          questions: users[authedUser].questions.concat([formattedQuestion.id]),
+        },
+      };
+
+      res(formattedQuestion);
+    }, 1000);
+  });
+}
+
+export function _saveQuestionAnswer({ authedUser, qid, answer }) {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      users = {
+        ...users,
+        [authedUser]: {
+          ...users[authedUser],
+          answers: {
+            ...users[authedUser].answers,
+            [qid]: answer,
+          },
+        },
+      };
+
+      console.log(questions[qid]);
+
+      questions = {
+        ...questions,
+        [qid]: {
+          ...questions[qid],
+          [answer]: {
+            ...questions[qid][answer],
+            votes: questions[qid][answer].votes.concat([authedUser]),
+          },
+        },
+      };
+
+      res();
+    }, 500);
+  });
+}
