@@ -1,6 +1,6 @@
 # Would You Rather Game
 
-Would You Rather project is a simple and social game made for applying what i learned from Udacity's React & Redux course.
+Would You Rather project is a simple and social game made for applying what i have learned from Udacity's React & Redux course.
 
 ## TL;DR
 To get started developing right away:
